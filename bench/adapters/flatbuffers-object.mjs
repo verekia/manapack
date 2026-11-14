@@ -8,7 +8,8 @@ export const name = 'flatbuffers (object API)'
 export const pkg = 'flatbuffers'
 export const kind = 'schema'
 export const notes =
-  'as the row above for the write; the reader builds objects with unpack(), the object API (--gen-object-api)'
+  'written as flatbuffers (read in place); the reader builds objects with unpack(), the object API ' +
+  '(--gen-object-api)'
 
 const OPTIONAL = ['x', 'y', 'rot', 'vx', 'vy', 'health', 'mana']
 

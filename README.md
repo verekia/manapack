@@ -137,26 +137,41 @@ Module state makes a write or a read synchronous and not re-entrant, which is wh
 
 <!-- bench:start -->
 
-How manapack compares with 7 other ways to pack a state update, what a game server sends 20 times a
-second: 🟢 manapack is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5%. The sizes, the times, two
-more messages and every library are in [BENCH.md](https://github.com/verekia/manapack/blob/main/BENCH.md).
+How manapack compares with other ways to pack a state update, what a game server sends 20 times a second: 🟢
+manapack is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5%. These are the best known formats,
+the libraries made for games and the two closest ones. All 41 are in
+[BENCH.md](https://github.com/verekia/manapack/blob/main/BENCH.md), with the sizes, the times and two more messages.
+
+An update is 607 B without a state and 305 B with one.
 
 Any reader, any order, against manapack without a state:
 
-| library                     | size             | write, Node     | read, Node      | write, Bun      | read, Bun       |
-| --------------------------- | ---------------- | --------------- | --------------- | --------------- | --------------- |
-| JSON                        | 🟢 3.25× smaller | 🟢 6.88× faster | 🟢 7.84× faster | 🟢 3.95× faster | 🟢 4.04× faster |
-| msgpackr                    | 🟢 1.52× smaller | 🟢 2.30× faster | 🟢 4.20× faster | 🟢 3.77× faster | 🟢 5.20× faster |
-| flatbuffers (read in place) | 🟢 1.62× smaller | 🟢 5.12× faster | 🟢 2.58× faster | 🟢 3.86× faster | 🟢 2.42× faster |
-| bebop                       | 🟢 1.29× smaller | 🟢 2.03× faster | 🟢 2.06× faster | 🟢 2.12× faster | 🟢 3.02× faster |
-| sirdez                      | 🟢 1.14× smaller | ⚪ even         | ⚪ even         | ⚪ even         | 🟢 1.23× faster |
+| library                              | size             | write, Node      | read, Node       | write, Bun       | read, Bun        |
+| ------------------------------------ | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- |
+| JSON                                 | 🟢 3.25× smaller | 🟢 6.87× faster  | 🟢 7.98× faster  | 🟢 4.33× faster  | 🟢 3.88× faster  |
+| msgpackr                             | 🟢 1.52× smaller | 🟢 2.29× faster  | 🟢 4.31× faster  | 🟢 3.95× faster  | 🟢 5.11× faster  |
+| @msgpack/msgpack                     | 🟢 1.52× smaller | 🟢 3.08× faster  | 🟢 4.72× faster  | 🟢 4.64× faster  | 🟢 7.02× faster  |
+| cbor-x                               | 🟢 1.52× smaller | 🟢 2.45× faster  | 🟢 4.55× faster  | 🟢 3.24× faster  | 🟢 5.65× faster  |
+| protobufjs                           | 🟢 1.14× smaller | 🟢 2.35× faster  | 🟢 2.04× faster  | 🟢 3.09× faster  | 🟢 3.09× faster  |
+| @bufbuild/protobuf                   | 🟢 1.14× smaller | 🟢 5.52× faster  | 🟢 4.68× faster  | 🟢 7.23× faster  | 🟢 6.55× faster  |
+| avsc                                 | 🟢 1.14× smaller | 🟢 2.09× faster  | 🟢 2.13× faster  | 🟢 3.19× faster  | 🟢 3.96× faster  |
+| flatbuffers (read in place)          | 🟢 1.62× smaller | 🟢 5.37× faster  | 🟢 2.55× faster  | 🟢 4.36× faster  | 🟢 2.35× faster  |
+| bebop                                | 🟢 1.29× smaller | 🟢 2.03× faster  | 🟢 1.97× faster  | 🟢 2.26× faster  | 🟢 3.06× faster  |
+| @apache-fory/core                    | 🟢 1.15× smaller | 🟢 1.43× faster  | 🟢 1.45× faster  | 🟢 1.76× faster  | 🟢 1.19× faster  |
+| packcat                              | 🟢 1.14× smaller | 🟢 2.60× faster  | 🟢 1.94× faster  | 🟢 3.35× faster  | 🟢 2.08× faster  |
+| @geckos.io/typed-array-buffer-schema | 🟢 1.12× smaller | 🟢 38.33× faster | 🟢 59.65× faster | 🟢 56.07× faster | 🟢 59.42× faster |
+| tinybuf                              | 🟢 1.14× smaller | 🟢 4.76× faster  | 🟢 2.40× faster  | 🟢 3.42× faster  | 🟢 2.90× faster  |
+| @hpx7/delta-pack                     | 🔴 1.03× larger  | 🟢 2.08× faster  | 🟢 2.66× faster  | 🟢 2.97× faster  | 🟢 3.22× faster  |
+| @timeleap/sia                        | 🔴 1.02× larger  | ⚪ even          | ⚪ even          | 🔴 1.07× slower  | 🟢 1.88× faster  |
+| sirdez                               | 🟢 1.14× smaller | ⚪ even          | ⚪ even          | 🟢 1.12× faster  | 🟢 1.19× faster  |
 
 Messages read in order on one socket, against manapack with its socket state:
 
 | library                     | size             | write, Node     | read, Node       | write, Bun      | read, Bun        |
 | --------------------------- | ---------------- | --------------- | ---------------- | --------------- | ---------------- |
-| msgpackr (records, float32) | 🟢 2.13× smaller | 🟢 3.13× faster | 🟢 3.94× faster  | 🟢 5.62× faster | 🟢 9.54× faster  |
-| @colyseus/schema            | 🟢 1.17× smaller | 🟢 3.35× faster | 🟢 19.24× faster | 🟢 5.92× faster | 🟢 17.28× faster |
+| msgpackr (records, float32) | 🟢 2.13× smaller | 🟢 2.77× faster | 🟢 3.86× faster  | 🟢 5.49× faster | 🟢 9.61× faster  |
+| cbor-x (records, float32)   | 🟢 2.28× smaller | 🟢 3.05× faster | 🟢 4.09× faster  | 🟢 4.52× faster | 🟢 9.61× faster  |
+| @colyseus/schema            | 🟢 1.17× smaller | 🟢 2.98× faster | 🟢 19.86× faster | 🟢 5.86× faster | 🟢 18.41× faster |
 
 Node 22.23.4 and Bun 1.4.4, Intel Xeon Processor @ 2.10GHz, 4 cores, 2026-11-14. `bun run bench` runs it all again.
 

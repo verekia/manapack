@@ -143,6 +143,14 @@ for (const [workload, { title, text }] of Object.entries(WORKLOADS)) {
   }
 }
 bench.push('## Libraries', '', ...libraries(), '')
+bench.push(
+  '## Left out',
+  '',
+  '- grechabuf: its 64-bit float writes 8 bytes and counts 4, which corrupts the field after it.',
+  '- @mysten/bcs: the format has no float type.',
+  "- Cap'n Proto, typia and @deepkit/bson: they need a compiler or a build plugin that this benchmark does not run.",
+  '',
+)
 if (failed.length) {
   bench.push(
     '## Failed',
@@ -175,6 +183,7 @@ const summary = stateful => {
   )
 }
 
+const first = Object.keys(runtimes)[0]
 const START = '<!-- bench:start -->'
 const END = '<!-- bench:end -->'
 const readmePath = `${root}README.md`
@@ -183,9 +192,12 @@ if (readme.includes(START) && readme.includes(END)) {
   const section = [
     START,
     '',
-    `How manapack compares with ${others.size} other ways to pack a state update, what a game server sends 20 times a`,
-    'second: 🟢 manapack is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5%. The sizes, the times, two',
-    'more messages and every library are in [BENCH.md](https://github.com/verekia/manapack/blob/main/BENCH.md).',
+    'How manapack compares with other ways to pack a state update, what a game server sends 20 times a second: 🟢',
+    'manapack is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5%. These are the best known formats,',
+    `the libraries made for games and the two closest ones. All ${others.size} are in`,
+    '[BENCH.md](https://github.com/verekia/manapack/blob/main/BENCH.md), with the sizes, the times and two more messages.',
+    '',
+    `An update is ${size(find('manapack', 'update', first).bytes)} without a state and ${size(find('manapack-state', 'update', first).bytes)} with one.`,
     '',
     'Any reader, any order, against manapack without a state:',
     '',

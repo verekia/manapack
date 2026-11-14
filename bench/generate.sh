@@ -4,7 +4,7 @@
 set -e
 cd "$(dirname "$0")"
 
-node_modules/bebop-tools/tools/linux/x64/bebopc --config bebop/bebop.json build
+node_modules/.bin/bebopc --config bebop/bebop.json build
 bun build --no-bundle bebop/generated.ts --outfile bebop/generated.mjs
 rm bebop/generated.ts
 
