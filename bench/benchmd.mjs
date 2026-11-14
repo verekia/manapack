@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 const root = new URL('..', import.meta.url).pathname
 const { date, cpu, repeat, runtimes, rows } = JSON.parse(readFileSync(`${root}BENCH.json`, 'utf8'))
 
-// Times within 5% are called even: the fastest of a few runs still moves by about that much
+// Within 5% is called even: the fastest of a few runs still moves by about that much, and a size is held to the same
 const NOISE = 0.05
 const ENGINES = { node: 'V8', bun: 'JavaScriptCore' }
 const RUNTIMES = { node: 'Node', bun: 'Bun' }
@@ -51,14 +51,15 @@ const referenceOf = stateful => (stateful ? 'manapack-state' : 'manapack')
 const find = (adapter, workload, runtime) =>
   good.find(row => row.adapter === adapter && row.workload === workload && row.runtime === runtime)
 
+// The verdict follows the ratio as it is shown, to two decimals: 1.05x is even, 1.06x is not
 const versus = (mine, other, better, worse, threshold, sign) => {
   const ratio = other / mine
-  if (ratio >= 1 + threshold) return `🟢 ${ratio.toFixed(2)}${sign} ${better}`
-  if (ratio <= 1 / (1 + threshold)) return `🔴 ${(1 / ratio).toFixed(2)}${sign} ${worse}`
+  if (Number(ratio.toFixed(2)) > 1 + threshold) return `🟢 ${ratio.toFixed(2)}${sign} ${better}`
+  if (Number((1 / ratio).toFixed(2)) > 1 + threshold) return `🔴 ${(1 / ratio).toFixed(2)}${sign} ${worse}`
   return '⚪ even'
 }
 const faster = (mine, other, sign = 'x') => versus(mine, other, 'faster', 'slower', NOISE, sign)
-const smaller = (mine, other, sign = 'x') => versus(mine, other, 'smaller', 'larger', 0.005, sign)
+const smaller = (mine, other, sign = 'x') => versus(mine, other, 'smaller', 'larger', NOISE, sign)
 
 const micro = ns => `${(ns / 1000).toFixed(2)} µs`
 const size = bytes => `${Math.round(bytes).toLocaleString('en-US')} B`
@@ -121,7 +122,7 @@ const bench = [
   '',
   `A size is the average of the 256 messages. A time is the fastest pass over them, each library in a process of its`,
   `own, the best of ${repeat} runs. The last three columns say how manapack compares to the library of the row: 🟢 manapack`,
-  `is smaller or faster, 🔴 manapack is larger or slower, ⚪ within ${NOISE * 100}% (run noise).`,
+  `is smaller or faster, 🔴 manapack is larger or slower, ⚪ within ${NOISE * 100}% (the run noise of a time).`,
   '',
   'A library that keeps a state per socket needs its messages read in order on one connection: it is compared with',
   'manapack with its socket state, in a table of its own. Any reader takes a message of the other libraries, in any',

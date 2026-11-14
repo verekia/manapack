@@ -161,8 +161,8 @@ Any reader, any order, against manapack without a state:
 | packcat                              | 🟢 1.14× smaller | 🟢 2.60× faster  | 🟢 1.94× faster  | 🟢 3.35× faster  | 🟢 2.08× faster  |
 | @geckos.io/typed-array-buffer-schema | 🟢 1.12× smaller | 🟢 38.33× faster | 🟢 59.65× faster | 🟢 56.07× faster | 🟢 59.42× faster |
 | tinybuf                              | 🟢 1.14× smaller | 🟢 4.76× faster  | 🟢 2.40× faster  | 🟢 3.42× faster  | 🟢 2.90× faster  |
-| @hpx7/delta-pack                     | 🔴 1.03× larger  | 🟢 2.08× faster  | 🟢 2.66× faster  | 🟢 2.97× faster  | 🟢 3.22× faster  |
-| @timeleap/sia                        | 🔴 1.02× larger  | ⚪ even          | ⚪ even          | 🔴 1.07× slower  | 🟢 1.88× faster  |
+| @hpx7/delta-pack                     | ⚪ even          | 🟢 2.08× faster  | 🟢 2.66× faster  | 🟢 2.97× faster  | 🟢 3.22× faster  |
+| @timeleap/sia                        | ⚪ even          | ⚪ even          | ⚪ even          | 🔴 1.07× slower  | 🟢 1.88× faster  |
 | sirdez                               | 🟢 1.14× smaller | ⚪ even          | ⚪ even          | 🟢 1.12× faster  | 🟢 1.19× faster  |
 
 Messages read in order on one socket, against manapack with its socket state:
