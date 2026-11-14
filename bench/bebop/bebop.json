@@ -1,0 +1,8 @@
+{
+  "include": ["messages.bop"],
+  "generators": {
+    "ts": {
+      "outFile": "generated.ts"
+    }
+  }
+}
