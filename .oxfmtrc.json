@@ -1,0 +1,21 @@
+{
+  "printWidth": 120,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "sortImports": {
+    "groups": [
+      ["side_effect", "builtin", "external"],
+      ["parent", "sibling", "index"],
+      ["type-external"],
+      ["type-parent", "type-sibling", "type-index"]
+    ],
+    "newlinesBetween": true,
+    "ignoreCase": true
+  },
+  "ignorePatterns": ["node_modules"]
+}
