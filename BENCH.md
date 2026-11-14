@@ -10,7 +10,7 @@ fraction to 2 mm. A float is a float32 wherever a library has one.
 
 A size is the average of the 256 messages. A time is the fastest pass over them, each library in a process of its
 own, the best of 3 runs. The last three columns say how manapack compares to the library of the row: 🟢 manapack
-is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5% (run noise).
+is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5% (the run noise of a time).
 
 A library that keeps a state per socket needs its messages read in order on one connection: it is compared with
 manapack with its socket state, in a table of its own. Any reader takes a message of the other libraries, in any
@@ -32,9 +32,9 @@ Without a state:
 | library                              | schema |    size |      write |     read | manapack size    | manapack write    | manapack read    |
 | ------------------------------------ | ------ | ------: | ---------: | -------: | ---------------- | ----------------- | ---------------- |
 | **manapack**                         | yes    |   607 B |    2.05 µs |  1.37 µs |                  |                   |                  |
-| @hpx7/delta-pack                     | yes    |   591 B |    4.27 µs |  3.65 µs | 🔴 1.03x larger  | 🟢 2.08x faster   | 🟢 2.66x faster  |
-| @timeleap/sia                        | yes    |   595 B |    2.06 µs |  1.33 µs | 🔴 1.02x larger  | ⚪ even           | ⚪ even          |
-| restructure                          | yes    |   596 B |   55.47 µs | 34.87 µs | 🔴 1.02x larger  | 🟢 27.05x faster  | 🟢 25.44x faster |
+| @hpx7/delta-pack                     | yes    |   591 B |    4.27 µs |  3.65 µs | ⚪ even          | 🟢 2.08x faster   | 🟢 2.66x faster  |
+| @timeleap/sia                        | yes    |   595 B |    2.06 µs |  1.33 µs | ⚪ even          | ⚪ even           | ⚪ even          |
+| restructure                          | yes    |   596 B |   55.47 µs | 34.87 µs | ⚪ even          | 🟢 27.05x faster  | 🟢 25.44x faster |
 | schemapack                           | yes    |   659 B |    3.51 µs |  2.34 µs | 🟢 1.09x smaller | 🟢 1.71x faster   | 🟢 1.70x faster  |
 | kiwi-schema                          | yes    |   660 B |    4.72 µs |  3.32 µs | 🟢 1.09x smaller | 🟢 2.30x faster   | 🟢 2.42x faster  |
 | @javelin/pack                        | yes    |   673 B |   30.09 µs | 24.81 µs | 🟢 1.11x smaller | 🟢 14.68x faster  | 🟢 18.10x faster |
@@ -90,9 +90,9 @@ Without a state:
 | library                              | schema |    size |     write |     read | manapack size    | manapack write    | manapack read    |
 | ------------------------------------ | ------ | ------: | --------: | -------: | ---------------- | ----------------- | ---------------- |
 | **manapack**                         | yes    |   607 B |   1.16 µs |  0.92 µs |                  |                   |                  |
-| @hpx7/delta-pack                     | yes    |   591 B |   3.45 µs |  2.97 µs | 🔴 1.03x larger  | 🟢 2.97x faster   | 🟢 3.22x faster  |
-| @timeleap/sia                        | yes    |   595 B |   1.09 µs |  1.73 µs | 🔴 1.02x larger  | 🔴 1.07x slower   | 🟢 1.88x faster  |
-| restructure                          | yes    |   596 B |  19.28 µs | 12.76 µs | 🔴 1.02x larger  | 🟢 16.57x faster  | 🟢 13.84x faster |
+| @hpx7/delta-pack                     | yes    |   591 B |   3.45 µs |  2.97 µs | ⚪ even          | 🟢 2.97x faster   | 🟢 3.22x faster  |
+| @timeleap/sia                        | yes    |   595 B |   1.09 µs |  1.73 µs | ⚪ even          | 🔴 1.07x slower   | 🟢 1.88x faster  |
+| restructure                          | yes    |   596 B |  19.28 µs | 12.76 µs | ⚪ even          | 🟢 16.57x faster  | 🟢 13.84x faster |
 | schemapack                           | yes    |   659 B |   2.99 µs |  0.99 µs | 🟢 1.09x smaller | 🟢 2.57x faster   | 🟢 1.08x faster  |
 | kiwi-schema                          | yes    |   660 B |   3.17 µs |  3.36 µs | 🟢 1.09x smaller | 🟢 2.73x faster   | 🟢 3.64x faster  |
 | @javelin/pack                        | yes    |   673 B |  10.44 µs |  7.19 µs | 🟢 1.11x smaller | 🟢 8.98x faster   | 🟢 7.80x faster  |
@@ -148,21 +148,21 @@ Without a state:
 | library                              | schema |    size |      write |      read | manapack size    | manapack write     | manapack read    |
 | ------------------------------------ | ------ | ------: | ---------: | --------: | ---------------- | ------------------ | ---------------- |
 | **manapack**                         | yes    | 1,660 B |    3.27 µs |   4.12 µs |                  |                    |                  |
-| @hpx7/delta-pack                     | yes    | 1,581 B |   12.29 µs |  10.52 µs | 🔴 1.05x larger  | 🟢 3.76x faster    | 🟢 2.56x faster  |
-| kiwi-schema                          | yes    | 1,627 B |    9.43 µs |  11.26 µs | 🔴 1.02x larger  | 🟢 2.89x faster    | 🟢 2.74x faster  |
-| packcat                              | yes    | 1,629 B |   10.56 µs |   8.59 µs | 🔴 1.02x larger  | 🟢 3.23x faster    | 🟢 2.09x faster  |
-| schemapack                           | yes    | 1,629 B |    7.33 µs |   7.65 µs | 🔴 1.02x larger  | 🟢 2.25x faster    | 🟢 1.86x faster  |
-| sirdez                               | yes    | 1,629 B |    3.59 µs |   4.82 µs | 🔴 1.02x larger  | 🟢 1.10x faster    | 🟢 1.17x faster  |
-| tinybuf                              | yes    | 1,629 B |   39.27 µs |  10.98 µs | 🔴 1.02x larger  | 🟢 12.03x faster   | 🟢 2.67x faster  |
-| avsc                                 | yes    | 1,634 B |    9.95 µs |   6.03 µs | 🔴 1.02x larger  | 🟢 3.05x faster    | 🟢 1.46x faster  |
-| @bare-ts/lib                         | yes    | 1,635 B |    8.55 µs |   8.97 µs | 🔴 1.02x larger  | 🟢 2.62x faster    | 🟢 2.18x faster  |
-| @timeleap/sia                        | yes    | 1,637 B |    3.91 µs |   3.61 µs | 🔴 1.01x larger  | 🟢 1.20x faster    | 🔴 1.14x slower  |
-| restructure                          | yes    | 1,638 B |  148.62 µs |  91.48 µs | 🔴 1.01x larger  | 🟢 45.52x faster   | 🟢 22.22x faster |
-| typed-binary                         | yes    | 1,640 B |   15.92 µs |  27.62 µs | 🔴 1.01x larger  | 🟢 4.88x faster    | 🟢 6.71x faster  |
-| @apache-fory/core                    | yes    | 1,642 B |    3.47 µs |   4.30 µs | 🔴 1.01x larger  | 🟢 1.06x faster    | ⚪ even          |
-| superbuffer                          | yes    | 1,704 B |  103.10 µs |  60.57 µs | 🟢 1.03x smaller | 🟢 31.58x faster   | 🟢 14.71x faster |
-| @javelin/pack                        | yes    | 1,708 B |   71.81 µs |  63.30 µs | 🟢 1.03x smaller | 🟢 21.99x faster   | 🟢 15.38x faster |
-| @geckos.io/typed-array-buffer-schema | yes    | 1,714 B |  171.20 µs | 179.13 µs | 🟢 1.03x smaller | 🟢 52.43x faster   | 🟢 43.51x faster |
+| @hpx7/delta-pack                     | yes    | 1,581 B |   12.29 µs |  10.52 µs | ⚪ even          | 🟢 3.76x faster    | 🟢 2.56x faster  |
+| kiwi-schema                          | yes    | 1,627 B |    9.43 µs |  11.26 µs | ⚪ even          | 🟢 2.89x faster    | 🟢 2.74x faster  |
+| packcat                              | yes    | 1,629 B |   10.56 µs |   8.59 µs | ⚪ even          | 🟢 3.23x faster    | 🟢 2.09x faster  |
+| schemapack                           | yes    | 1,629 B |    7.33 µs |   7.65 µs | ⚪ even          | 🟢 2.25x faster    | 🟢 1.86x faster  |
+| sirdez                               | yes    | 1,629 B |    3.59 µs |   4.82 µs | ⚪ even          | 🟢 1.10x faster    | 🟢 1.17x faster  |
+| tinybuf                              | yes    | 1,629 B |   39.27 µs |  10.98 µs | ⚪ even          | 🟢 12.03x faster   | 🟢 2.67x faster  |
+| avsc                                 | yes    | 1,634 B |    9.95 µs |   6.03 µs | ⚪ even          | 🟢 3.05x faster    | 🟢 1.46x faster  |
+| @bare-ts/lib                         | yes    | 1,635 B |    8.55 µs |   8.97 µs | ⚪ even          | 🟢 2.62x faster    | 🟢 2.18x faster  |
+| @timeleap/sia                        | yes    | 1,637 B |    3.91 µs |   3.61 µs | ⚪ even          | 🟢 1.20x faster    | 🔴 1.14x slower  |
+| restructure                          | yes    | 1,638 B |  148.62 µs |  91.48 µs | ⚪ even          | 🟢 45.52x faster   | 🟢 22.22x faster |
+| typed-binary                         | yes    | 1,640 B |   15.92 µs |  27.62 µs | ⚪ even          | 🟢 4.88x faster    | 🟢 6.71x faster  |
+| @apache-fory/core                    | yes    | 1,642 B |    3.47 µs |   4.30 µs | ⚪ even          | 🟢 1.06x faster    | ⚪ even          |
+| superbuffer                          | yes    | 1,704 B |  103.10 µs |  60.57 µs | ⚪ even          | 🟢 31.58x faster   | 🟢 14.71x faster |
+| @javelin/pack                        | yes    | 1,708 B |   71.81 µs |  63.30 µs | ⚪ even          | 🟢 21.99x faster   | 🟢 15.38x faster |
+| @geckos.io/typed-array-buffer-schema | yes    | 1,714 B |  171.20 µs | 179.13 µs | ⚪ even          | 🟢 52.43x faster   | 🟢 43.51x faster |
 | @zorsh/zorsh                         | yes    | 1,832 B |   82.07 µs |  26.08 µs | 🟢 1.10x smaller | 🟢 25.14x faster   | 🟢 6.34x faster  |
 | bebop                                | yes    | 1,832 B |    7.68 µs |   8.09 µs | 🟢 1.10x smaller | 🟢 2.35x faster    | 🟢 1.97x faster  |
 | borsh                                | yes    | 1,832 B |   92.43 µs | 133.52 µs | 🟢 1.10x smaller | 🟢 28.31x faster   | 🟢 32.43x faster |
@@ -206,21 +206,21 @@ Without a state:
 | library                              | schema |    size |      write |      read | manapack size    | manapack write    | manapack read    |
 | ------------------------------------ | ------ | ------: | ---------: | --------: | ---------------- | ----------------- | ---------------- |
 | **manapack**                         | yes    | 1,660 B |    1.94 µs |   4.01 µs |                  |                   |                  |
-| @hpx7/delta-pack                     | yes    | 1,581 B |   11.12 µs |   8.53 µs | 🔴 1.05x larger  | 🟢 5.72x faster   | 🟢 2.12x faster  |
-| kiwi-schema                          | yes    | 1,627 B |    6.19 µs |  10.40 µs | 🔴 1.02x larger  | 🟢 3.19x faster   | 🟢 2.59x faster  |
-| packcat                              | yes    | 1,629 B |    8.12 µs |   7.64 µs | 🔴 1.02x larger  | 🟢 4.18x faster   | 🟢 1.90x faster  |
-| schemapack                           | yes    | 1,629 B |    8.52 µs |   4.10 µs | 🔴 1.02x larger  | 🟢 4.39x faster   | ⚪ even          |
-| sirdez                               | yes    | 1,629 B |    2.54 µs |   3.70 µs | 🔴 1.02x larger  | 🟢 1.31x faster   | 🔴 1.08x slower  |
-| tinybuf                              | yes    | 1,629 B |   16.97 µs |  17.22 µs | 🔴 1.02x larger  | 🟢 8.73x faster   | 🟢 4.29x faster  |
-| avsc                                 | yes    | 1,634 B |    6.75 µs |   5.03 µs | 🔴 1.02x larger  | 🟢 3.47x faster   | 🟢 1.25x faster  |
-| @bare-ts/lib                         | yes    | 1,635 B |    6.35 µs |   9.19 µs | 🔴 1.02x larger  | 🟢 3.27x faster   | 🟢 2.29x faster  |
-| @timeleap/sia                        | yes    | 1,637 B |    2.00 µs |   6.08 µs | 🔴 1.01x larger  | ⚪ even           | 🟢 1.51x faster  |
-| restructure                          | yes    | 1,638 B |   39.39 µs |  39.19 µs | 🔴 1.01x larger  | 🟢 20.27x faster  | 🟢 9.77x faster  |
-| typed-binary                         | yes    | 1,640 B |   30.51 µs |  35.01 µs | 🔴 1.01x larger  | 🟢 15.70x faster  | 🟢 8.72x faster  |
-| @apache-fory/core                    | yes    | 1,642 B |    2.33 µs |   4.13 µs | 🔴 1.01x larger  | 🟢 1.20x faster   | ⚪ even          |
-| superbuffer                          | yes    | 1,704 B |   34.86 µs |  37.19 µs | 🟢 1.03x smaller | 🟢 17.94x faster  | 🟢 9.27x faster  |
-| @javelin/pack                        | yes    | 1,708 B |   27.68 µs |  26.47 µs | 🟢 1.03x smaller | 🟢 14.24x faster  | 🟢 6.60x faster  |
-| @geckos.io/typed-array-buffer-schema | yes    | 1,714 B |  175.04 µs | 151.06 µs | 🟢 1.03x smaller | 🟢 90.06x faster  | 🟢 37.64x faster |
+| @hpx7/delta-pack                     | yes    | 1,581 B |   11.12 µs |   8.53 µs | ⚪ even          | 🟢 5.72x faster   | 🟢 2.12x faster  |
+| kiwi-schema                          | yes    | 1,627 B |    6.19 µs |  10.40 µs | ⚪ even          | 🟢 3.19x faster   | 🟢 2.59x faster  |
+| packcat                              | yes    | 1,629 B |    8.12 µs |   7.64 µs | ⚪ even          | 🟢 4.18x faster   | 🟢 1.90x faster  |
+| schemapack                           | yes    | 1,629 B |    8.52 µs |   4.10 µs | ⚪ even          | 🟢 4.39x faster   | ⚪ even          |
+| sirdez                               | yes    | 1,629 B |    2.54 µs |   3.70 µs | ⚪ even          | 🟢 1.31x faster   | 🔴 1.08x slower  |
+| tinybuf                              | yes    | 1,629 B |   16.97 µs |  17.22 µs | ⚪ even          | 🟢 8.73x faster   | 🟢 4.29x faster  |
+| avsc                                 | yes    | 1,634 B |    6.75 µs |   5.03 µs | ⚪ even          | 🟢 3.47x faster   | 🟢 1.25x faster  |
+| @bare-ts/lib                         | yes    | 1,635 B |    6.35 µs |   9.19 µs | ⚪ even          | 🟢 3.27x faster   | 🟢 2.29x faster  |
+| @timeleap/sia                        | yes    | 1,637 B |    2.00 µs |   6.08 µs | ⚪ even          | ⚪ even           | 🟢 1.51x faster  |
+| restructure                          | yes    | 1,638 B |   39.39 µs |  39.19 µs | ⚪ even          | 🟢 20.27x faster  | 🟢 9.77x faster  |
+| typed-binary                         | yes    | 1,640 B |   30.51 µs |  35.01 µs | ⚪ even          | 🟢 15.70x faster  | 🟢 8.72x faster  |
+| @apache-fory/core                    | yes    | 1,642 B |    2.33 µs |   4.13 µs | ⚪ even          | 🟢 1.20x faster   | ⚪ even          |
+| superbuffer                          | yes    | 1,704 B |   34.86 µs |  37.19 µs | ⚪ even          | 🟢 17.94x faster  | 🟢 9.27x faster  |
+| @javelin/pack                        | yes    | 1,708 B |   27.68 µs |  26.47 µs | ⚪ even          | 🟢 14.24x faster  | 🟢 6.60x faster  |
+| @geckos.io/typed-array-buffer-schema | yes    | 1,714 B |  175.04 µs | 151.06 µs | ⚪ even          | 🟢 90.06x faster  | 🟢 37.64x faster |
 | @zorsh/zorsh                         | yes    | 1,832 B |   36.45 µs |  45.49 µs | 🟢 1.10x smaller | 🟢 18.76x faster  | 🟢 11.34x faster |
 | bebop                                | yes    | 1,832 B |    5.08 µs |   8.76 µs | 🟢 1.10x smaller | 🟢 2.62x faster   | 🟢 2.18x faster  |
 | borsh                                | yes    | 1,832 B |   66.71 µs |  88.49 µs | 🟢 1.10x smaller | 🟢 34.32x faster  | 🟢 22.05x faster |
@@ -265,16 +265,16 @@ Without a state:
 | ------------------------------------ | ------ | ----: | --------: | -------: | ---------------- | ----------------- | ----------------- |
 | **manapack**                         | yes    |  49 B |   0.24 µs |  0.13 µs |                  |                   |                   |
 | avsc                                 | yes    |  47 B |   0.19 µs |  0.23 µs | 🔴 1.05x larger  | 🔴 1.26x slower   | 🟢 1.86x faster   |
-| @hpx7/delta-pack                     | yes    |  47 B |   0.25 µs |  0.28 µs | 🔴 1.04x larger  | ⚪ even           | 🟢 2.27x faster   |
-| kiwi-schema                          | yes    |  47 B |   0.93 µs |  0.29 µs | 🔴 1.04x larger  | 🟢 3.82x faster   | 🟢 2.30x faster   |
-| @bare-ts/lib                         | yes    |  48 B |   0.63 µs |  0.23 µs | 🔴 1.02x larger  | 🟢 2.60x faster   | 🟢 1.81x faster   |
-| packcat                              | yes    |  48 B |   0.50 µs |  0.22 µs | 🔴 1.02x larger  | 🟢 2.04x faster   | 🟢 1.79x faster   |
-| sirdez                               | yes    |  48 B |   0.19 µs |  0.15 µs | 🔴 1.02x larger  | 🔴 1.27x slower   | 🟢 1.21x faster   |
-| tinybuf                              | yes    |  48 B |   1.08 µs |  0.40 µs | 🔴 1.02x larger  | 🟢 4.41x faster   | 🟢 3.17x faster   |
-| schemapack                           | yes    |  49 B |   0.24 µs |  0.21 µs | 🔴 1.01x larger  | ⚪ even           | 🟢 1.66x faster   |
-| @timeleap/sia                        | yes    |  50 B |   0.20 µs |  0.14 µs | 🟢 1.02x smaller | 🔴 1.23x slower   | 🟢 1.14x faster   |
-| restructure                          | yes    |  50 B |   3.54 µs |  4.11 µs | 🟢 1.02x smaller | 🟢 14.49x faster  | 🟢 32.77x faster  |
-| @apache-fory/core                    | yes    |  52 B |   0.24 µs |  0.24 µs | 🟢 1.05x smaller | ⚪ even           | 🟢 1.88x faster   |
+| @hpx7/delta-pack                     | yes    |  47 B |   0.25 µs |  0.28 µs | ⚪ even          | ⚪ even           | 🟢 2.27x faster   |
+| kiwi-schema                          | yes    |  47 B |   0.93 µs |  0.29 µs | ⚪ even          | 🟢 3.82x faster   | 🟢 2.30x faster   |
+| @bare-ts/lib                         | yes    |  48 B |   0.63 µs |  0.23 µs | ⚪ even          | 🟢 2.60x faster   | 🟢 1.81x faster   |
+| packcat                              | yes    |  48 B |   0.50 µs |  0.22 µs | ⚪ even          | 🟢 2.04x faster   | 🟢 1.79x faster   |
+| sirdez                               | yes    |  48 B |   0.19 µs |  0.15 µs | ⚪ even          | 🔴 1.27x slower   | 🟢 1.21x faster   |
+| tinybuf                              | yes    |  48 B |   1.08 µs |  0.40 µs | ⚪ even          | 🟢 4.41x faster   | 🟢 3.17x faster   |
+| schemapack                           | yes    |  49 B |   0.24 µs |  0.21 µs | ⚪ even          | ⚪ even           | 🟢 1.66x faster   |
+| @timeleap/sia                        | yes    |  50 B |   0.20 µs |  0.14 µs | ⚪ even          | 🔴 1.23x slower   | 🟢 1.14x faster   |
+| restructure                          | yes    |  50 B |   3.54 µs |  4.11 µs | ⚪ even          | 🟢 14.49x faster  | 🟢 32.77x faster  |
+| @apache-fory/core                    | yes    |  52 B |   0.24 µs |  0.24 µs | ⚪ even          | ⚪ even           | 🟢 1.88x faster   |
 | typed-binary                         | yes    |  53 B |   0.55 µs |  1.47 µs | 🟢 1.08x smaller | 🟢 2.24x faster   | 🟢 11.75x faster  |
 | @bufbuild/protobuf                   | yes    |  55 B |   1.70 µs |  0.73 µs | 🟢 1.11x smaller | 🟢 6.95x faster   | 🟢 5.83x faster   |
 | pbf                                  | yes    |  55 B |   0.40 µs |  0.26 µs | 🟢 1.11x smaller | 🟢 1.62x faster   | 🟢 2.09x faster   |
@@ -321,16 +321,16 @@ Without a state:
 | ------------------------------------ | ------ | ----: | -------: | ------: | ---------------- | ----------------- | ---------------- |
 | **manapack**                         | yes    |  49 B |  0.10 µs | 0.10 µs |                  |                   |                  |
 | avsc                                 | yes    |  47 B |  0.12 µs | 0.15 µs | 🔴 1.05x larger  | 🟢 1.21x faster   | 🟢 1.53x faster  |
-| @hpx7/delta-pack                     | yes    |  47 B |  0.18 µs | 0.28 µs | 🔴 1.04x larger  | 🟢 1.74x faster   | 🟢 2.81x faster  |
-| kiwi-schema                          | yes    |  47 B |  0.61 µs | 0.45 µs | 🔴 1.04x larger  | 🟢 6.02x faster   | 🟢 4.48x faster  |
-| @bare-ts/lib                         | yes    |  48 B |  0.39 µs | 0.15 µs | 🔴 1.02x larger  | 🟢 3.89x faster   | 🟢 1.46x faster  |
-| packcat                              | yes    |  48 B |  0.28 µs | 0.20 µs | 🔴 1.02x larger  | 🟢 2.77x faster   | 🟢 2.01x faster  |
-| sirdez                               | yes    |  48 B |  0.09 µs | 0.11 µs | 🔴 1.02x larger  | 🔴 1.07x slower   | 🟢 1.11x faster  |
-| tinybuf                              | yes    |  48 B |  0.41 µs | 0.31 µs | 🔴 1.02x larger  | 🟢 4.05x faster   | 🟢 3.11x faster  |
-| schemapack                           | yes    |  49 B |  0.26 µs | 0.11 µs | 🔴 1.01x larger  | 🟢 2.56x faster   | 🟢 1.10x faster  |
-| @timeleap/sia                        | yes    |  50 B |  0.12 µs | 0.15 µs | 🟢 1.02x smaller | 🟢 1.17x faster   | 🟢 1.44x faster  |
-| restructure                          | yes    |  50 B |  1.08 µs | 1.41 µs | 🟢 1.02x smaller | 🟢 10.73x faster  | 🟢 14.02x faster |
-| @apache-fory/core                    | yes    |  52 B |  0.21 µs | 0.18 µs | 🟢 1.05x smaller | 🟢 2.08x faster   | 🟢 1.80x faster  |
+| @hpx7/delta-pack                     | yes    |  47 B |  0.18 µs | 0.28 µs | ⚪ even          | 🟢 1.74x faster   | 🟢 2.81x faster  |
+| kiwi-schema                          | yes    |  47 B |  0.61 µs | 0.45 µs | ⚪ even          | 🟢 6.02x faster   | 🟢 4.48x faster  |
+| @bare-ts/lib                         | yes    |  48 B |  0.39 µs | 0.15 µs | ⚪ even          | 🟢 3.89x faster   | 🟢 1.46x faster  |
+| packcat                              | yes    |  48 B |  0.28 µs | 0.20 µs | ⚪ even          | 🟢 2.77x faster   | 🟢 2.01x faster  |
+| sirdez                               | yes    |  48 B |  0.09 µs | 0.11 µs | ⚪ even          | 🔴 1.07x slower   | 🟢 1.11x faster  |
+| tinybuf                              | yes    |  48 B |  0.41 µs | 0.31 µs | ⚪ even          | 🟢 4.05x faster   | 🟢 3.11x faster  |
+| schemapack                           | yes    |  49 B |  0.26 µs | 0.11 µs | ⚪ even          | 🟢 2.56x faster   | 🟢 1.10x faster  |
+| @timeleap/sia                        | yes    |  50 B |  0.12 µs | 0.15 µs | ⚪ even          | 🟢 1.17x faster   | 🟢 1.44x faster  |
+| restructure                          | yes    |  50 B |  1.08 µs | 1.41 µs | ⚪ even          | 🟢 10.73x faster  | 🟢 14.02x faster |
+| @apache-fory/core                    | yes    |  52 B |  0.21 µs | 0.18 µs | ⚪ even          | 🟢 2.08x faster   | 🟢 1.80x faster  |
 | typed-binary                         | yes    |  53 B |  0.73 µs | 1.28 µs | 🟢 1.08x smaller | 🟢 7.24x faster   | 🟢 12.71x faster |
 | @bufbuild/protobuf                   | yes    |  55 B |  0.81 µs | 0.57 µs | 🟢 1.11x smaller | 🟢 8.01x faster   | 🟢 5.65x faster  |
 | pbf                                  | yes    |  55 B |  0.22 µs | 0.22 µs | 🟢 1.11x smaller | 🟢 2.14x faster   | 🟢 2.15x faster  |
