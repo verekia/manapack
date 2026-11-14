@@ -5,7 +5,8 @@ import { KINDS, STANCES } from '../workloads.mjs'
 export const name = 'avsc'
 export const pkg = 'avsc'
 export const kind = 'schema'
-export const notes = 'Avro binary; optional fields are ["null", T] unions; t, ack and seq are long, other ints are int'
+export const notes =
+  'Avro binary; optional fields are ["null", T] unions; t, ack and seq are long, the other ints are int'
 
 const optional = (field, type) => ({ name: field, type: ['null', type], default: null })
 
@@ -110,7 +111,11 @@ const views = {
 
 const session = workload => {
   const type = types[workload]
-  const state = { encode: message => type.toBuffer(message), decode: data => type.fromBuffer(data), view: views[workload] }
+  const state = {
+    encode: message => type.toBuffer(message),
+    decode: data => type.fromBuffer(data),
+    view: views[workload],
+  }
   return () => state
 }
 

@@ -1,23 +1,11 @@
-import {
-  boolean,
-  build,
-  enumeration,
-  float32,
-  float64,
-  list,
-  object,
-  optional,
-  string,
-  uint8,
-  varuint,
-} from 'packcat'
+import { boolean, build, enumeration, float32, float64, list, object, optional, string, uint8, varuint } from 'packcat'
 
 import { KINDS, STANCES } from '../workloads.mjs'
 
 export const name = 'packcat'
 export const pkg = 'packcat'
 export const kind = 'schema'
-export const notes = 'build(schema).pack/unpack; optional() is a byte per field; t is a float64 (varuint is 32 bits)'
+export const notes = 'build(schema).pack/unpack; optional() is a byte per field; t as float64 (varuint is 32 bits)'
 
 const schemas = {
   snapshot: object({
