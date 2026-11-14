@@ -50,6 +50,17 @@ toClient.decode(first, reader) // { type: 'diff', payload: { t, updates: [{ id: 
 A schema that does not match its type is a compile error: a field one of the two lacks, a required field declared
 optional, a number where a string goes.
 
+## Install
+
+Manapack is not on npm yet:
+
+```sh
+bun add github:verekia/manapack
+```
+
+It ships as TypeScript source. Bun runs it as it is; a bundler has to compile it (in Next.js, add it to
+`transpilePackages`).
+
 ## Types
 
 | Codec                     | Value                                                                   | Bytes                                                                                |
