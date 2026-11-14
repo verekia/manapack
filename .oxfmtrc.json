@@ -36,5 +36,5 @@
     "ignoreCase": true
   },
   "sortTailwindcss": true,
-  "ignorePatterns": ["node_modules", "dist", "out", ".next"]
+  "ignorePatterns": ["node_modules", "dist", "out", ".next", "bench/*/generated.mjs"]
 }
