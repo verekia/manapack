@@ -17,6 +17,7 @@ const report = fields =>
       adapter: adapterName,
       name: adapter.name,
       kind: adapter.kind,
+      stateful: adapter.stateful === true,
       version: adapter.pkg ? versionOf(adapter.pkg) : (adapter.version ?? ''),
       notes: adapter.notes ?? '',
       workload: workloadName,

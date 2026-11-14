@@ -5,6 +5,7 @@ import { KINDS, same, STANCES, workloads as messages } from '../workloads.mjs'
 export const name = '@colyseus/schema'
 export const pkg = '@colyseus/schema'
 export const kind = 'schema'
+export const stateful = true
 export const notes =
   'schema() form. snapshot: set 32 entities, encodeAll, read into a fresh state. update: set the changed fields ' +
   'of a map keyed by id, encode, discardChanges: an id travels once and a field set to the value it had is not ' +

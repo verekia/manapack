@@ -3,6 +3,7 @@ import { ALWAYS, Decoder, Encoder } from 'cbor-x'
 export const name = 'cbor-x (records, float32)'
 export const pkg = 'cbor-x'
 export const kind = 'schemaless'
+export const stateful = true
 export const notes = 'sequential record structures per socket, read in order; useFloat32: ALWAYS'
 
 const session = () => {

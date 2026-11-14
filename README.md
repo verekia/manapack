@@ -133,24 +133,34 @@ forces the interpreter, for a test of both.
 128 message types a channel, 256 named strings a socket at once, 32 levels in an `any()` value, 64 MB a message.
 Module state makes a write or a read synchronous and not re-entrant, which is what a socket handler is.
 
-## Benchmark
-
-`bench/` packs the same game messages with 33 other libraries, JSON and the serializer of V8, and checks that every
-message reads back the same
-before it times anything. Each library runs in a process of its own. This is a state update, what changed in one
-tick: 14 entities on average, a few fields each.
+## Performance
 
 <!-- bench:start -->
+
+How manapack compares with 7 other ways to pack a state update, what a game server sends 20 times a
+second: 🟢 manapack is smaller or faster, 🔴 manapack is larger or slower, ⚪ within 5%. The sizes, the times, two
+more messages and every library are in [BENCH.md](https://github.com/verekia/manapack/blob/main/BENCH.md).
+
+Any reader, any order, against manapack without a state:
+
+| library                     | size             | write, Node     | read, Node      | write, Bun      | read, Bun       |
+| --------------------------- | ---------------- | --------------- | --------------- | --------------- | --------------- |
+| JSON                        | 🟢 3.25× smaller | 🟢 6.88× faster | 🟢 7.84× faster | 🟢 3.95× faster | 🟢 4.04× faster |
+| msgpackr                    | 🟢 1.52× smaller | 🟢 2.30× faster | 🟢 4.20× faster | 🟢 3.77× faster | 🟢 5.20× faster |
+| flatbuffers (read in place) | 🟢 1.62× smaller | 🟢 5.12× faster | 🟢 2.58× faster | 🟢 3.86× faster | 🟢 2.42× faster |
+| bebop                       | 🟢 1.29× smaller | 🟢 2.03× faster | 🟢 2.06× faster | 🟢 2.12× faster | 🟢 3.02× faster |
+| sirdez                      | 🟢 1.14× smaller | ⚪ even         | ⚪ even         | ⚪ even         | 🟢 1.23× faster |
+
+Messages read in order on one socket, against manapack with its socket state:
+
+| library                     | size             | write, Node     | read, Node       | write, Bun      | read, Bun        |
+| --------------------------- | ---------------- | --------------- | ---------------- | --------------- | ---------------- |
+| msgpackr (records, float32) | 🟢 2.13× smaller | 🟢 3.13× faster | 🟢 3.94× faster  | 🟢 5.62× faster | 🟢 9.54× faster  |
+| @colyseus/schema            | 🟢 1.17× smaller | 🟢 3.35× faster | 🟢 19.24× faster | 🟢 5.92× faster | 🟢 17.28× faster |
+
+Node 22.23.4 and Bun 1.4.4, Intel Xeon Processor @ 2.10GHz, 4 cores, 2026-11-14. `bun run bench` runs it all again.
+
 <!-- bench:end -->
-
-- A row with a state (Manapack's socket state, the records of msgpackr and cbor-x, Colyseus) needs its messages read
-  in order on one socket. Any reader takes a message of the other rows.
-- Every library is given the plain objects a game holds, at the best settings its documentation names, and returns
-  bytes it does not write over. A float is a float32 wherever a library has one.
-- A time is the fastest pass over 256 messages, a size is their average.
-
-[The full results](https://github.com/verekia/manapack/blob/main/bench/RESULTS.md) have the same table for a snapshot
-and for a client input, and the version and the settings of each library. `bun run bench` runs it all again.
 
 ## The demo
 

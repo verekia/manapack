@@ -1,0 +1,58 @@
+namespace bench;
+
+enum Kind : ubyte { player, monster, npc }
+enum Stance : ubyte { idle, run, cast, stun }
+
+table Entity {
+  id: string;
+  name: string;
+  kind: Kind;
+  x: float;
+  y: float;
+  rot: float;
+  health: ushort;
+  max_health: ushort;
+  mana: ushort;
+  level: ubyte;
+  alive: bool;
+}
+
+table Snapshot {
+  t: ulong;
+  entities: [Entity];
+}
+
+table Change {
+  id: string;
+  x: float = null;
+  y: float = null;
+  rot: float = null;
+  vx: float = null;
+  vy: float = null;
+  health: ushort = null;
+  mana: ushort = null;
+  stance: Stance = null;
+}
+
+table Update {
+  t: ulong;
+  ack: uint;
+  updates: [Change];
+}
+
+table Action {
+  ability: string;
+  target: string;
+}
+
+table Input {
+  seq: uint;
+  t: ulong;
+  x: float;
+  y: float;
+  vx: float;
+  vy: float;
+  rot: float;
+  zone: string;
+  actions: [Action];
+}

@@ -3,6 +3,7 @@ import { FLOAT32_OPTIONS, Packr, Unpackr } from 'msgpackr'
 export const name = 'msgpackr (records, float32)'
 export const pkg = 'msgpackr'
 export const kind = 'schemaless'
+export const stateful = true
 export const notes = 'sequential record structures per socket, read in order; useFloat32: ALWAYS'
 
 const session = () => {
