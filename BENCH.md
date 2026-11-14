@@ -264,7 +264,7 @@ Without a state:
 | library                              | schema |  size |     write |     read | manapack size    | manapack write    | manapack read     |
 | ------------------------------------ | ------ | ----: | --------: | -------: | ---------------- | ----------------- | ----------------- |
 | **manapack**                         | yes    |  49 B |   0.24 µs |  0.13 µs |                  |                   |                   |
-| avsc                                 | yes    |  47 B |   0.19 µs |  0.23 µs | 🔴 1.05x larger  | 🔴 1.26x slower   | 🟢 1.86x faster   |
+| avsc                                 | yes    |  47 B |   0.19 µs |  0.23 µs | ⚪ even          | 🔴 1.26x slower   | 🟢 1.86x faster   |
 | @hpx7/delta-pack                     | yes    |  47 B |   0.25 µs |  0.28 µs | ⚪ even          | ⚪ even           | 🟢 2.27x faster   |
 | kiwi-schema                          | yes    |  47 B |   0.93 µs |  0.29 µs | ⚪ even          | 🟢 3.82x faster   | 🟢 2.30x faster   |
 | @bare-ts/lib                         | yes    |  48 B |   0.63 µs |  0.23 µs | ⚪ even          | 🟢 2.60x faster   | 🟢 1.81x faster   |
@@ -320,7 +320,7 @@ Without a state:
 | library                              | schema |  size |    write |    read | manapack size    | manapack write    | manapack read    |
 | ------------------------------------ | ------ | ----: | -------: | ------: | ---------------- | ----------------- | ---------------- |
 | **manapack**                         | yes    |  49 B |  0.10 µs | 0.10 µs |                  |                   |                  |
-| avsc                                 | yes    |  47 B |  0.12 µs | 0.15 µs | 🔴 1.05x larger  | 🟢 1.21x faster   | 🟢 1.53x faster  |
+| avsc                                 | yes    |  47 B |  0.12 µs | 0.15 µs | ⚪ even          | 🟢 1.21x faster   | 🟢 1.53x faster  |
 | @hpx7/delta-pack                     | yes    |  47 B |  0.18 µs | 0.28 µs | ⚪ even          | 🟢 1.74x faster   | 🟢 2.81x faster  |
 | kiwi-schema                          | yes    |  47 B |  0.61 µs | 0.45 µs | ⚪ even          | 🟢 6.02x faster   | 🟢 4.48x faster  |
 | @bare-ts/lib                         | yes    |  48 B |  0.39 µs | 0.15 µs | ⚪ even          | 🟢 3.89x faster   | 🟢 1.46x faster  |

@@ -51,10 +51,11 @@ const referenceOf = stateful => (stateful ? 'manapack-state' : 'manapack')
 const find = (adapter, workload, runtime) =>
   good.find(row => row.adapter === adapter && row.workload === workload && row.runtime === runtime)
 
+// The verdict follows the ratio as it is shown, to two decimals: 1.05x is even, 1.06x is not
 const versus = (mine, other, better, worse, threshold, sign) => {
   const ratio = other / mine
-  if (ratio >= 1 + threshold) return `🟢 ${ratio.toFixed(2)}${sign} ${better}`
-  if (ratio <= 1 / (1 + threshold)) return `🔴 ${(1 / ratio).toFixed(2)}${sign} ${worse}`
+  if (Number(ratio.toFixed(2)) > 1 + threshold) return `🟢 ${ratio.toFixed(2)}${sign} ${better}`
+  if (Number((1 / ratio).toFixed(2)) > 1 + threshold) return `🔴 ${(1 / ratio).toFixed(2)}${sign} ${worse}`
   return '⚪ even'
 }
 const faster = (mine, other, sign = 'x') => versus(mine, other, 'faster', 'slower', NOISE, sign)
