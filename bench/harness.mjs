@@ -9,7 +9,8 @@ const adapter = await import(`./adapters/${adapterName}.mjs`)
 const messages = workloads[workloadName]
 const session = adapter.workloads[workloadName]
 
-const versionOf = name => JSON.parse(readFileSync(new URL(`./node_modules/${name}/package.json`, import.meta.url))).version
+const versionOf = name =>
+  JSON.parse(readFileSync(new URL(`./node_modules/${name}/package.json`, import.meta.url))).version
 const report = fields =>
   console.log(
     JSON.stringify({

@@ -11,10 +11,10 @@
         "@colyseus/schema": "5.0.48",
         "@geckos.io/typed-array-buffer-schema": "1.2.1",
         "@hpx7/delta-pack": "0.3.1",
+        "@javelin/core": "1.0.0-alpha.12",
         "@javelin/pack": "1.0.0-alpha.12",
         "@jsonjoy.com/json-pack": "18.30.0",
         "@msgpack/msgpack": "3.1.3",
-        "@mysten/bcs": "2.1.4",
         "@timeleap/sia": "2.3.0",
         "@zorsh/zorsh": "0.5.2",
         "avsc": "5.7.9",
@@ -23,7 +23,6 @@
         "cbor-x": "1.6.9",
         "cbor2": "2.4.1",
         "cborg": "7.0.0",
-        "grechabuf": "2.1.0",
         "js-binary": "1.2.0",
         "kiwi-schema": "0.5.0",
         "lib0": "0.2.120",
@@ -116,12 +115,6 @@
 
     "@msgpackr-extract/msgpackr-extract-win32-x64": ["@msgpackr-extract/msgpackr-extract-win32-x64@3.0.7", "", { "os": "win32", "cpu": "x64" }, "sha512-PRBiOqK4mcR0rvm6nybO7pSOYRR2Zza0+43UK2IvbVGelzMqZViiZJmOWGuWOX678QKESO6YrHx36z43nSS6iQ=="],
 
-    "@mysten/bcs": ["@mysten/bcs@2.1.4", "", { "dependencies": { "@mysten/utils": "^0.4.2", "@scure/base": "^2.3.0" } }, "sha512-ksfm0HGy82iDcuLaf4kAduaeTNqALH8D8WCdxxwU/L2Gpk4SnqoC7D8R4qMoMpCSkh56CFVG3Tme343Iz2P8PA=="],
-
-    "@mysten/utils": ["@mysten/utils@0.4.2", "", {}, "sha512-K/5eBuYKxUFCrYcic1lvYvWE9OVSH581cjVjwsSJGUqPit91nZq2acUwes+B4lo98VE/CILIUeBcyEIvuNxMhA=="],
-
-    "@scure/base": ["@scure/base@2.4.0", "", {}, "sha512-thZ1TuJwFwBblOhgsjDKvvGirBxNp+wSvY/DR6tJBJOTDhdAAcHJ8Vbr2eFnqaxeca4+t0i9KBf+uHYGWwZORg=="],
-
     "@timeleap/sia": ["@timeleap/sia@2.3.0", "", { "dependencies": { "utfz-lib": "^0.2.0" } }, "sha512-2asqcnbtQPOJ71DCPYhMmhSdyPaCQb7/UNR6yHmZowpa3urMJUEJfF7iwGZ6AWiX/J3wT/p8vG2AaBjkZelMrA=="],
 
     "@zorsh/zorsh": ["@zorsh/zorsh@0.5.2", "", {}, "sha512-U/YPwaTpmE0NQ5bhw4gD2i3xK77c6KwVVZSyLfi9DSxg/zqOtxN8q+YK8FOY+QGj5nxxGeowqFauH4mP1mC1gg=="],
@@ -157,8 +150,6 @@
     "glob-to-regex.js": ["glob-to-regex.js@1.3.1", "", { "peerDependencies": { "tslib": "2" } }, "sha512-zhWhMRsgnOym+1txhUmYJGD6eUsbUdrZv55gCYKuJX8t2p3+M8My23PD09bEIsreGUs5pnSa/idmcfp2/IlqGg=="],
 
     "graceful-fs": ["graceful-fs@4.2.12", "", {}, "sha512-iuyGF2E4oafQfPsRrG2wtY2ILupMhvtdrhzrxB+0VcjsPpSPttpfYdjnGFGsTi5MaJFjI1jOKHPQ6UTbTj9TAw=="],
-
-    "grechabuf": ["grechabuf@2.1.0", "", {}, "sha512-CtvuQcpbQTwy7BldvTqmCKKXiFpbZjEVtEP6q7NwKWLtuKaLXOaXgmXad2MOgFKTZ24vH+EdO3pwIn47y/BwXg=="],
 
     "hyperdyperid": ["hyperdyperid@1.2.0", "", {}, "sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A=="],
 

@@ -125,10 +125,10 @@ const build = () => {
 export const workloads = build()
 export const WORKLOADS = Object.keys(workloads)
 
-// The same message, whatever a library reads an absent field as: no undefined, and numbers to 2 mm
+// The same message, whatever a library reads an absent field as: a whole number exact, a fraction to 2 mm
 export const same = (a, b, path = '') => {
   if (typeof a === 'number' && typeof b === 'number') {
-    if (Math.abs(a - b) <= 0.002 + Math.abs(a) * 1e-6) return null
+    if (Number.isInteger(b) ? a === b : Math.abs(a - b) <= 0.002) return null
     return `${path}: ${a} is not ${b}`
   }
   if (Array.isArray(a) && Array.isArray(b)) {
@@ -140,7 +140,9 @@ export const same = (a, b, path = '') => {
     return null
   }
   if (a && b && typeof a === 'object' && typeof b === 'object' && !Array.isArray(a) && !Array.isArray(b)) {
-    const keys = new Set([...Object.keys(a), ...Object.keys(b)].filter(key => a[key] !== undefined || b[key] !== undefined))
+    const keys = new Set(
+      [...Object.keys(a), ...Object.keys(b)].filter(key => a[key] !== undefined || b[key] !== undefined),
+    )
     for (const key of keys) {
       const difference = same(a[key], b[key], `${path}.${key}`)
       if (difference) return difference

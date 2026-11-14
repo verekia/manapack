@@ -11,7 +11,8 @@ const TITLES = {
 }
 const RUNTIME_NAMES = { node: 'Node', bun: 'Bun' }
 
-const time = ns => (ns === undefined ? '' : ns >= 9950 ? `${(ns / 1000).toFixed(1)} µs` : `${(ns / 1000).toFixed(2)} µs`)
+const time = ns =>
+  ns === undefined ? '' : ns >= 9950 ? `${(ns / 1000).toFixed(1)} µs` : `${(ns / 1000).toFixed(2)} µs`
 const size = bytes => (bytes === undefined ? '' : `${Math.round(bytes).toLocaleString('en-US')} B`)
 
 const table = workload => {
@@ -29,7 +30,10 @@ const table = workload => {
       const cells = Object.keys(runtimes).flatMap(runtime => [time(by[runtime]?.encodeNs), time(by[runtime]?.decodeNs)])
       return `| ${[label, any.kind === 'schema' ? 'yes' : 'no', size(any.bytes), ...cells].join(' | ')} |`
     })
-  const heads = Object.keys(runtimes).flatMap(runtime => [`${RUNTIME_NAMES[runtime]} write`, `${RUNTIME_NAMES[runtime]} read`])
+  const heads = Object.keys(runtimes).flatMap(runtime => [
+    `${RUNTIME_NAMES[runtime]} write`,
+    `${RUNTIME_NAMES[runtime]} read`,
+  ])
   return [
     `| ${['Library', 'Schema', 'Size', ...heads].join(' | ')} |`,
     `| ${['---', '---', '---:', ...heads.map(() => '---:')].join(' | ')} |`,
@@ -76,6 +80,9 @@ const readmePath = `${here}../README.md`
 const readme = readFileSync(readmePath, 'utf8')
 if (readme.includes(START) && readme.includes(END)) {
   const section = `${START}\n\n${table('update')}\n\n${environment}.\n\n${END}`
-  writeFileSync(readmePath, readme.slice(0, readme.indexOf(START)) + section + readme.slice(readme.indexOf(END) + END.length))
+  writeFileSync(
+    readmePath,
+    readme.slice(0, readme.indexOf(START)) + section + readme.slice(readme.indexOf(END) + END.length),
+  )
 }
 console.log(`RESULTS.md written: ${rows.length - failed.length} results, ${failed.length} failed`)

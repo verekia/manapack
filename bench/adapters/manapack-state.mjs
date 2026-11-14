@@ -1,5 +1,4 @@
 import { createWireState, float } from '../../library/dist/index.js'
-
 import { sessions, version as libraryVersion } from './manapack.mjs'
 
 export const name = 'manapack (socket state)'

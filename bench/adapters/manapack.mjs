@@ -12,7 +12,6 @@ import {
   sym,
   uint,
 } from '../../library/dist/index.js'
-
 import { KINDS, STANCES } from '../workloads.mjs'
 
 export const name = 'manapack'

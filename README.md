@@ -133,6 +133,25 @@ forces the interpreter, for a test of both.
 128 message types a channel, 256 named strings a socket at once, 32 levels in an `any()` value, 64 MB a message.
 Module state makes a write or a read synchronous and not re-entrant, which is what a socket handler is.
 
+## Benchmark
+
+`bench/` packs the same game messages with 33 other libraries, JSON and the serializer of V8, and checks that every
+message reads back the same
+before it times anything. Each library runs in a process of its own. This is a state update, what changed in one
+tick: 14 entities on average, a few fields each.
+
+<!-- bench:start -->
+<!-- bench:end -->
+
+- A row with a state (Manapack's socket state, the records of msgpackr and cbor-x, Colyseus) needs its messages read
+  in order on one socket. Any reader takes a message of the other rows.
+- Every library is given the plain objects a game holds, at the best settings its documentation names, and returns
+  bytes it does not write over. A float is a float32 wherever a library has one.
+- A time is the fastest pass over 256 messages, a size is their average.
+
+[The full results](https://github.com/verekia/manapack/blob/main/bench/RESULTS.md) have the same table for a snapshot
+and for a client input, and the version and the settings of each library. `bun run bench` runs it all again.
+
 ## The demo
 
 `example/` is a page where a server loop writes a state diff 20 times a second and a board draws what the reader

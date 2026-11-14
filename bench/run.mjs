@@ -40,13 +40,22 @@ const rows = previous.filter(
 for (const runtime of runtimes) {
   for (const adapter of adapters) {
     for (const workload of selected) {
-      const run = spawnSync(runtime, ['harness.mjs', adapter, workload], { cwd: here, encoding: 'utf8', timeout: 120_000 })
+      const run = spawnSync(runtime, ['harness.mjs', adapter, workload], {
+        cwd: here,
+        encoding: 'utf8',
+        timeout: 120_000,
+      })
       const line = run.stdout?.trim().split('\n').at(-1)
       let row
       try {
         row = JSON.parse(line)
       } catch {
-        row = { adapter, workload, runtime, error: (run.stderr || run.error?.message || 'no output').trim().split('\n')[0] }
+        row = {
+          adapter,
+          workload,
+          runtime,
+          error: (run.stderr || run.error?.message || 'no output').trim().split('\n')[0],
+        }
       }
       rows.push(row)
       const outcome = row.error
@@ -66,7 +75,9 @@ writeFileSync(
     {
       date: new Date().toISOString().slice(0, 10),
       machine: `${cpus()[0].model.trim()}, ${cpus().length} cores, ${process.platform} ${process.arch}`,
-      runtimes: Object.fromEntries(['node', 'bun'].filter(r => rows.some(row => row.runtime === r)).map(r => [r, versionOf(r)])),
+      runtimes: Object.fromEntries(
+        ['node', 'bun'].filter(r => rows.some(row => row.runtime === r)).map(r => [r, versionOf(r)]),
+      ),
       rows,
     },
     null,
