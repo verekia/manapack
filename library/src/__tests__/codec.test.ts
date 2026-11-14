@@ -22,9 +22,9 @@ import {
   sym,
   uint,
   union,
-} from './index'
+} from '../index'
 
-import type { Codec } from './index'
+import type { Codec } from '../index'
 
 afterEach(() => setWireStrict(false))
 

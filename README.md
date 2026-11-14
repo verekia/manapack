@@ -9,6 +9,10 @@ one. It has no dependency, and the same code runs on a server and in a browser.
 It was purpose-built for [Mana Blade](https://manablade.com), a low-poly multiplayer online RPG, so everything in it
 is tested in a shipped game.
 
+```bash
+bun add manapack   # or npm / pnpm / yarn
+```
+
 ```ts
 import { channel, createWireState, delta, fixed, list, oneOf, optional, str, struct, sym, uint, union } from 'manapack'
 
@@ -49,17 +53,6 @@ toClient.decode(first, reader) // { type: 'diff', payload: { t, updates: [{ id: 
 
 A schema that does not match its type is a compile error: a field one of the two lacks, a required field declared
 optional, a number where a string goes.
-
-## Install
-
-Manapack is not on npm yet:
-
-```sh
-bun add github:verekia/manapack
-```
-
-It ships as TypeScript source. Bun runs it as it is; a bundler has to compile it (in Next.js, add it to
-`transpilePackages`).
 
 ## Types
 
@@ -139,3 +132,17 @@ forces the interpreter, for a test of both.
 
 128 message types a channel, 256 named strings a socket at once, 32 levels in an `any()` value, 64 MB a message.
 Module state makes a write or a read synchronous and not re-entrant, which is what a socket handler is.
+
+## The demo
+
+`example/` is a page where a server loop writes a state diff 20 times a second and a board draws what the reader
+decoded, next to the size of the same message as JSON. Turn the per-socket state off, or send positions as floats,
+and the sizes follow.
+
+```bash
+bun i && bun dev
+```
+
+## License
+
+MIT

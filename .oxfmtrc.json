@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "printWidth": 120,
   "tabWidth": 2,
   "useTabs": false,
@@ -8,8 +9,25 @@
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "sortImports": {
+    "customGroups": [
+      {
+        "groupName": "react",
+        "elementNamePattern": ["react"]
+      },
+      {
+        "groupName": "workspace",
+        "elementNamePattern": ["manapack"]
+      },
+      {
+        "groupName": "local",
+        "elementNamePattern": ["#/"]
+      }
+    ],
     "groups": [
+      ["react"],
+      ["workspace"],
       ["side_effect", "builtin", "external"],
+      ["local"],
       ["parent", "sibling", "index"],
       ["type-external"],
       ["type-parent", "type-sibling", "type-index"]
@@ -17,5 +35,6 @@
     "newlinesBetween": true,
     "ignoreCase": true
   },
-  "ignorePatterns": ["node_modules"]
+  "sortTailwindcss": true,
+  "ignorePatterns": ["node_modules", "dist", "out", ".next"]
 }

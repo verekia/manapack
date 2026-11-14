@@ -1,0 +1,41 @@
+{
+  "name": "manapack",
+  "version": "0.1.0",
+  "description": "A schema-driven binary codec for real-time game messages: no field names or type tags on the wire, compiled encoders and decoders, per-socket string interning and deltas.",
+  "keywords": [
+    "binary",
+    "codec",
+    "game",
+    "multiplayer",
+    "netcode",
+    "schema",
+    "serialization",
+    "websocket"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verekia/manapack.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup && cp ../README.md README.md && cp ../LICENSE LICENSE",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.4",
+    "tsup": "8.5.1",
+    "typescript": "6.0.3"
+  }
+}

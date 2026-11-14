@@ -1,47 +1,32 @@
 {
-  "name": "manapack",
-  "version": "0.1.0",
+  "name": "manapack-monorepo",
+  "version": "0.0.0",
   "private": true,
-  "description": "A schema-driven binary codec for real-time game messages: no field names or type tags on the wire, compiled encoders and decoders, per-socket string interning and deltas.",
-  "keywords": [
-    "binary",
-    "codec",
-    "game",
-    "multiplayer",
-    "netcode",
-    "schema",
-    "serialization",
-    "websocket"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/verekia/manapack.git"
-  },
-  "files": [
-    "src",
-    "!src/**/*.test.ts",
-    "README.md",
-    "LICENSE"
+  "workspaces": [
+    "example",
+    "library"
   ],
   "type": "module",
-  "sideEffects": false,
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "scripts": {
-    "typecheck": "bun check",
-    "test": "bun test",
+    "dev": "bun run --parallel --filter '*' dev",
+    "build": "bun run --filter '*' build",
+    "start": "bun run --filter '*' start",
+    "typecheck": "tsc -b --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
-    "format": "bun fmt",
-    "format:check": "bun fmt --check",
-    "all": "bun run format:check && bun run lint && bun run typecheck && bun run test"
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "test": "bun test",
+    "warden": "warden",
+    "all": "bun run format:check && bun run lint && bun run typecheck && bun run warden && bun run test",
+    "prepare": "husky",
+    "pub": "bun run --filter 'manapack' build && npm publish --workspace library"
   },
   "devDependencies": {
-    "@types/bun": "1.4.4",
+    "@verekia/warden": "0.0.5",
+    "husky": "9.1.7",
+    "oxfmt": "0.48.0",
     "oxlint": "1.63.0",
-    "typescript": "7.0.2"
-  },
-  "packageManager": "bun@1.4.4"
+    "typescript": "6.0.3"
+  }
 }
