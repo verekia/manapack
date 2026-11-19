@@ -69,7 +69,7 @@ const lines = (header, align, body) => [
   ...body.map(cells => `| ${cells.join(' | ')} |`),
 ]
 
-// Plain unpadded rows: oxfmt owns the alignment of the columns
+// Plain unpadded rows: bun fmt owns the alignment of the columns
 const resultsTable = (workload, runtime, stateful) => {
   const of = good.filter(row => row.workload === workload && row.runtime === runtime && row.stateful === stateful)
   const reference = of.find(row => row.adapter === referenceOf(stateful))

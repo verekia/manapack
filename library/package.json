@@ -31,7 +31,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup && cp ../README.md README.md && cp ../LICENSE LICENSE",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "bun check"
   },
   "devDependencies": {
     "@types/bun": "1.4.4",
